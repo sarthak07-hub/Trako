@@ -13,7 +13,7 @@ services:
           name: trako-db
           property: connectionString
       - key: SECRET_KEY
-        generateCrypto: true
+        generateValue: true
       - key: ALGORITHM
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
@@ -30,4 +30,3 @@ databases:
   - name: trako-db
     plan: free
     databaseName: trako_db
-    user: postgres
