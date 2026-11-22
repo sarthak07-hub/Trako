@@ -1,0 +1,424 @@
+/* ==========================================================================
+   TRAKO DASHBOARD & ROLE CONSOLES STYLING
+   ========================================================================== */
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.sidebar-nav {
+  padding: 1.25rem 0.75rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.nav-item:hover {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+.nav-item.active {
+  background: var(--primary-light);
+  color: #60a5fa;
+  font-weight: 600;
+  border-left: 3px solid var(--primary);
+}
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.sidebar-footer {
+  padding: 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+.user-profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.user-meta {
+  overflow: hidden;
+}
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-role-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Main Dashboard Content Area */
+.dashboard-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  overflow-y: auto;
+}
+.topbar {
+  height: 70px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.content-body {
+  padding: 2rem;
+  flex-grow: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Stat Cards */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.stat-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-light);
+  color: #60a5fa;
+  flex-shrink: 0;
+}
+.stat-icon-wrapper svg {
+  width: 24px;
+  height: 24px;
+}
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Interactive Bus Seat Layout */
+.bus-cabin-container {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+.bus-front-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px dashed var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.steering-wheel-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--text-muted);
+}
+.seats-grid-2x2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.seat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.seat-pair {
+  display: flex;
+  gap: 0.5rem;
+}
+.aisle-space {
+  width: 36px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.bus-seat {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+  border: 1px solid transparent;
+}
+.bus-seat.available {
+  background-color: #064e3b;
+  color: #34d399;
+  border-color: #059669;
+}
+.bus-seat.available:hover {
+  background-color: #047857;
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+.bus-seat.occupied {
+  background-color: #1e293b;
+  color: #64748b;
+  border-color: #334155;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.bus-seat.selected {
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  color: #ffffff;
+  border-color: #60a5fa;
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+}
+.seat-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+/* Digital Boarding Pass Ticket */
+.ticket-pass {
+  background: linear-gradient(135deg, #131d31 0%, #17243c 100%);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  max-width: 550px;
+  margin: 0 auto;
+}
+.ticket-header {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+}
+.ticket-brand {
+  font-weight: 800;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ticket-body {
+  padding: 1.75rem;
+}
+.ticket-route-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.ticket-stop-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.ticket-stop-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.ticket-divider-line {
+  position: relative;
+  border-top: 2px dashed var(--border-color);
+  margin: 1.5rem 0;
+}
+.ticket-divider-line::before, .ticket-divider-line::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+}
+.ticket-divider-line::before { left: -30px; }
+.ticket-divider-line::after { right: -30px; }
+.ticket-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.ticket-meta-item .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.ticket-meta-item .val {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.2rem;
+}
+.ticket-qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  max-width: 220px;
+  margin: 0 auto;
+}
+.ticket-qr-container img {
+  width: 180px;
+  height: 180px;
+}
+.ticket-qr-caption {
+  font-size: 0.75rem;
+  color: #0f172a;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* Map Containers */
+.map-view-container {
+  width: 100%;
+  height: 480px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+/* Conductor QR Camera Viewport */
+.scanner-viewport {
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  margin: 0 auto 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-secondary);
+  overflow: hidden;
+  position: relative;
+}
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+  box-shadow: 0 0 10px #06b6d4;
+  animation: scanAnim 2s infinite ease-in-out;
+}
+@keyframes scanAnim {
+  0% { top: 10%; }
+  50% { top: 90%; }
+  100% { top: 10%; }
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); }
+  .content-body { padding: 1rem; }
+  .topbar { padding: 0 1rem; }
+}

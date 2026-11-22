@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator Console — TRAKO</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/pages/index.html" class="brand-logo" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="15" rx="3"></rect>
+            <circle cx="7" cy="19" r="2"></circle>
+            <circle cx="17" cy="19" r="2"></circle>
+            <path d="M3 10h18M7 4v6M17 4v6"></path>
+          </svg>
+          <span style="font-size:1.25rem;">TRAKO</span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-item active tab-btn" id="btn-tab-overview" onclick="switchOperatorTab('overview')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Fleet Overview</span>
+        </div>
+
+        <div class="nav-item tab-btn" id="btn-tab-buses" onclick="switchOperatorTab('buses')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M7 15h0M17 15h0"></path></svg>
+          <span>Buses & Seat QRs</span>
+        </div>
+
+        <div class="nav-item tab-btn" id="btn-tab-routes" onclick="switchOperatorTab('routes')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="19" r="3"></circle><circle cx="18" cy="5" r="3"></circle><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"></path></svg>
+          <span>Routes & Stops</span>
+        </div>
+
+        <div class="nav-item tab-btn" id="btn-tab-trips" onclick="switchOperatorTab('trips')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <span>Trips & Schedule</span>
+        </div>
+
+        <div class="nav-item tab-btn" id="btn-tab-bookings" onclick="switchOperatorTab('bookings')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Passenger Bookings</span>
+        </div>
+
+        <div class="nav-item tab-btn" id="btn-tab-radar" onclick="switchOperatorTab('radar')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <span>Live Fleet Radar</span>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" style="background:#4c1d95;">O</div>
+          <div class="user-meta">
+            <div class="user-name" id="operator-name">Bus Operator</div>
+            <div class="user-role-tag">Operator Console</div>
+          </div>
+        </div>
+        <button onclick="logout()" class="btn btn-outline btn-sm btn-full" style="margin-top:1rem;">
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dashboard-main">
+      <header class="topbar">
+        <div class="topbar-title">Bus Operator Fleet Management</div>
+        <div>
+          <button onclick="switchOperatorTab('radar')" class="btn btn-primary btn-sm">
+            <span class="badge badge-live" style="background:transparent;padding:0;"></span>
+            Live Fleet Radar
+          </button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        
+        <!-- Tab 1: Overview -->
+        <div id="tab-overview" class="operator-tab-content">
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="15" rx="3"></rect><circle cx="7" cy="19" r="2"></circle><circle cx="17" cy="19" r="2"></circle></svg>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-buses">--</div>
+                <div class="stat-label">Total Buses</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="19" r="3"></circle><circle cx="18" cy="5" r="3"></circle><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"></path></svg>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-routes">--</div>
+                <div class="stat-label">Active Routes</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-in-transit" style="color:var(--success);">--</div>
+                <div class="stat-label">In-Transit Today</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-today-trips">--</div>
+                <div class="stat-label">Today's Scheduled Trips</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-bookings">--</div>
+                <div class="stat-label">Total Reservations</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-revenue" style="color:var(--success);">--</div>
+                <div class="stat-label">Total Revenue</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Action Cards -->
+          <div class="grid grid-3">
+            <div class="card card-glass" style="cursor:pointer;" onclick="switchOperatorTab('buses')">
+              <h4 style="font-size:1.1rem;margin-bottom:0.5rem;">Bus Fleet & QRs &rarr;</h4>
+              <p style="color:var(--text-secondary);font-size:0.875rem;">Add buses, configure seat layouts, and print physical seat QR codes.</p>
+            </div>
+            <div class="card card-glass" style="cursor:pointer;" onclick="switchOperatorTab('trips')">
+              <h4 style="font-size:1.1rem;margin-bottom:0.5rem;">Schedule Trips &rarr;</h4>
+              <p style="color:var(--text-secondary);font-size:0.875rem;">Assign buses, drivers, and conductors to dated journeys.</p>
+            </div>
+            <div class="card card-glass" style="cursor:pointer;" onclick="switchOperatorTab('radar')">
+              <h4 style="font-size:1.1rem;margin-bottom:0.5rem;">Live Fleet Radar &rarr;</h4>
+              <p style="color:var(--text-secondary);font-size:0.875rem;">View real-time GPS locations and speeds of all buses in motion.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Buses Management -->
+        <div id="tab-buses" class="operator-tab-content" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-size:1.35rem;font-weight:800;">Fleet Management</h3>
+              <p style="color:var(--text-secondary);font-size:0.9rem;">Register buses and generate physical seat QR codes for passengers.</p>
+            </div>
+            <button onclick="document.getElementById('add-bus-modal').classList.add('active')" class="btn btn-primary btn-sm">
+              + Add New Bus
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Bus Name</th>
+                  <th>Registration</th>
+                  <th>Type</th>
+                  <th>Capacity</th>
+                  <th>Layout</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="buses-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 3: Routes -->
+        <div id="tab-routes" class="operator-tab-content" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-size:1.35rem;font-weight:800;">Route Management</h3>
+              <p style="color:var(--text-secondary);font-size:0.9rem;">Manage ordered routes and intermediate stops for segment seat booking.</p>
+            </div>
+          </div>
+
+          <div id="routes-list-container"></div>
+        </div>
+
+        <!-- Tab 4: Trips & Schedule -->
+        <div id="tab-trips" class="operator-tab-content" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-size:1.35rem;font-weight:800;">Trip Scheduler</h3>
+              <p style="color:var(--text-secondary);font-size:0.9rem;">Create dated journeys, assign buses, drivers, and conductors.</p>
+            </div>
+            <button onclick="openAddTripModal()" class="btn btn-primary btn-sm">
+              + Schedule Trip
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Trip Code</th>
+                  <th>Route</th>
+                  <th>Bus</th>
+                  <th>Departure</th>
+                  <th>Assigned Crew</th>
+                  <th>Status / Seats</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="trips-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 5: Bookings -->
+        <div id="tab-bookings" class="operator-tab-content" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-size:1.35rem;font-weight:800;">Passenger Reservations</h3>
+              <p style="color:var(--text-secondary);font-size:0.9rem;">Real-time segment bookings across all operator services.</p>
+            </div>
+            <button onclick="loadBookings()" class="btn btn-secondary btn-sm">🔄 Refresh</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Booking Ref</th>
+                  <th>Trip</th>
+                  <th>Passenger</th>
+                  <th>Seat</th>
+                  <th>Segment (From &rarr; To)</th>
+                  <th>Fare</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="operator-bookings-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 6: Fleet Radar Map -->
+        <div id="tab-radar" class="operator-tab-content" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-size:1.35rem;font-weight:800;">Live Fleet Radar</h3>
+              <p style="color:var(--text-secondary);font-size:0.9rem;">Real-time GPS tracking of active buses streaming smartphone coordinates.</p>
+            </div>
+            <button onclick="initFleetRadar()" class="btn btn-secondary btn-sm">🔄 Refresh Radar</button>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start;">
+            <div id="fleet-map" class="map-view-container" style="height:550px;"></div>
+            <div id="fleet-cards-list" style="max-height:550px;overflow-y:auto;"></div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Bus Modal -->
+  <div id="add-bus-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Register New Bus</h3>
+        <button class="modal-close" onclick="closeModal('add-bus-modal')">&times;</button>
+      </div>
+      <form onsubmit="handleAddBus(event)">
+        <div class="form-group">
+          <label class="form-label">Registration Number</label>
+          <input type="text" id="bus-reg" class="form-input" placeholder="e.g. GA-03-Z-9988" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bus Model / Name</label>
+          <input type="text" id="bus-name" class="form-input" placeholder="e.g. TRAKO Royal Cruiser" required>
+        </div>
+        <div class="grid grid-2" style="gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">Bus Type</label>
+            <select id="bus-type" class="form-select">
+              <option value="AC Semi-Sleeper">AC Semi-Sleeper</option>
+              <option value="AC Sleeper">AC Sleeper</option>
+              <option value="Luxury Seater">Luxury Seater</option>
+              <option value="Electric Express">Electric Express</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Seating Capacity</label>
+            <input type="number" id="bus-capacity" class="form-input" value="36" min="10" max="60" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Seat Layout Pattern</label>
+          <select id="bus-layout" class="form-select">
+            <option value="2+2">2+2 Seater (Standard 4 columns)</option>
+            <option value="2+1">2+1 Luxury / Sleeper (3 columns)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top:1rem;">
+          Add Bus & Generate Seats
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Physical Seat QR Modal -->
+  <div id="bus-qr-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width:850px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Physical Seat QR Codes</h3>
+        <button class="modal-close" onclick="closeModal('bus-qr-modal')">&times;</button>
+      </div>
+      <div id="bus-qr-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Add Trip Modal -->
+  <div id="add-trip-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Schedule New Trip</h3>
+        <button class="modal-close" onclick="closeModal('add-trip-modal')">&times;</button>
+      </div>
+      <form onsubmit="handleCreateTrip(event)">
+        <div class="form-group">
+          <label class="form-label">Route</label>
+          <select id="trip-route" class="form-select" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Assign Bus</label>
+          <select id="trip-bus" class="form-select" required></select>
+        </div>
+        <div class="grid grid-2" style="gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">Assign Driver</label>
+            <select id="trip-driver" class="form-select" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Assign Conductor</label>
+            <select id="trip-conductor" class="form-select" required></select>
+          </div>
+        </div>
+        <div class="grid grid-2" style="gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">Date of Journey</label>
+            <input type="date" id="trip-date" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Departure Time</label>
+            <input type="time" id="trip-time" class="form-input" value="08:30" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Base Full Route Fare (₹)</label>
+          <input type="number" id="trip-fare" class="form-input" value="450" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top:1rem;">
+          Schedule Trip
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/operator.js"></script>
+</body>
+</html>

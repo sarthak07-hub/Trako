@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — TRAKO</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body style="display:flex;flex-direction:column;min-height:100vh;">
+
+  <!-- Simple Header -->
+  <header class="navbar">
+    <a href="/pages/index.html" class="brand-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="15" rx="3"></rect>
+        <circle cx="7" cy="19" r="2"></circle>
+        <circle cx="17" cy="19" r="2"></circle>
+        <path d="M3 10h18M7 4v6M17 4v6"></path>
+      </svg>
+      <span>TRAKO</span>
+    </a>
+    <div>
+      <span style="color:var(--text-secondary);font-size:0.9rem;">Need an account?</span>
+      <a href="/pages/register.html" class="btn btn-outline btn-sm" style="margin-left:0.5rem;">Register</a>
+    </div>
+  </header>
+
+  <!-- Login Container -->
+  <main style="flex-grow:1;display:flex;align-items:center;justify-content:center;padding:2rem;">
+    <div style="max-width:960px;width:100%;display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;align-items:start;">
+      
+      <!-- Login Form Card -->
+      <div class="card card-glass" style="padding:2.5rem;">
+        <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:0.5rem;">Welcome to TRAKO</h2>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:2rem;">
+          Sign in to access your role-based mobility console.
+        </p>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="name@company.com" required>
+          </div>
+
+          <div class="form-group">
+            <div style="display:flex;justify-content:space-between;">
+              <label class="form-label">Password</label>
+            </div>
+            <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" id="login-btn" class="btn btn-primary btn-full btn-lg" style="margin-top:1.5rem;">
+            <span>Sign In</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- 1-Click Demo Accounts Switcher -->
+      <div class="card" style="border-color:rgba(59,130,246,0.3);background:linear-gradient(135deg, #111b2f 0%, #15223a 100%);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <h3 style="font-size:1.2rem;font-weight:700;color:var(--text-primary);">⚡ One-Click Demo Accounts</h3>
+          <span class="badge badge-primary">Evaluation Mode</span>
+        </div>
+        <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:1.5rem;">
+          Click any role below to automatically fill credentials and log into that role's dashboard:
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:0.85rem;" id="demo-buttons-list">
+          <!-- Filled dynamically or fallback -->
+          <div class="card" style="padding:0.9rem;cursor:pointer;background:var(--bg-card);border:1px solid var(--border-color);" onclick="fillDemo('aarav.passenger@trako.io', 'Password123!')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span class="badge badge-primary">Passenger</span>
+                <strong style="margin-left:0.5rem;font-size:0.95rem;">Aarav Sharma</strong>
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">aarav.passenger@trako.io</div>
+              </div>
+              <span class="btn btn-sm btn-outline">Auto-Fill &rarr;</span>
+            </div>
+          </div>
+
+          <div class="card" style="padding:0.9rem;cursor:pointer;background:var(--bg-card);border:1px solid var(--border-color);" onclick="fillDemo('ops@coastallines.in', 'Password123!')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span class="badge" style="background:#4c1d95;color:#c4b5fd;">Operator</span>
+                <strong style="margin-left:0.5rem;font-size:0.95rem;">KTC Coastal Travels</strong>
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">ops@coastallines.in</div>
+              </div>
+              <span class="btn btn-sm btn-outline">Auto-Fill &rarr;</span>
+            </div>
+          </div>
+
+          <div class="card" style="padding:0.9rem;cursor:pointer;background:var(--bg-card);border:1px solid var(--border-color);" onclick="fillDemo('rajesh.driver@trako.io', 'Password123!')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span class="badge" style="background:#064e3b;color:#6ee7b7;">Driver</span>
+                <strong style="margin-left:0.5rem;font-size:0.95rem;">Rajesh Naik (Driver)</strong>
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">rajesh.driver@trako.io</div>
+              </div>
+              <span class="btn btn-sm btn-outline">Auto-Fill &rarr;</span>
+            </div>
+          </div>
+
+          <div class="card" style="padding:0.9rem;cursor:pointer;background:var(--bg-card);border:1px solid var(--border-color);" onclick="fillDemo('suresh.conductor@trako.io', 'Password123!')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span class="badge" style="background:#78350f;color:#fde68a;">Conductor</span>
+                <strong style="margin-left:0.5rem;font-size:0.95rem;">Suresh Gawde (Conductor)</strong>
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">suresh.conductor@trako.io</div>
+              </div>
+              <span class="btn btn-sm btn-outline">Auto-Fill &rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.25rem;font-size:0.8rem;color:var(--text-muted);text-align:center;">
+          All demo passwords default to: <code style="color:#60a5fa;">Password123!</code>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script>
+    function fillDemo(email, password) {
+      document.getElementById('email').value = email;
+      document.getElementById('password').value = password;
+      showToast(`Selected demo credentials for ${email}`, 'info');
+      // Automatically submit form for convenience
+      document.getElementById('login-form').dispatchEvent(new Event('submit'));
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('login-btn');
+
+      btn.disabled = true;
+      btn.innerHTML = 'Signing In...';
+
+      try {
+        const tokenData = await apiRequest('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password })
+        });
+
+        setAuthSession(tokenData);
+        showToast(`Welcome back, ${tokenData.full_name}!`, 'success');
+
+        // Check if redirect query param exists
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+
+        setTimeout(() => {
+          if (redirect) {
+            window.location.href = redirect;
+            return;
+          }
+          if (tokenData.role === 'OPERATOR') window.location.href = '/pages/operator.html';
+          else if (tokenData.role === 'DRIVER') window.location.href = '/pages/driver.html';
+          else if (tokenData.role === 'CONDUCTOR') window.location.href = '/pages/conductor.html';
+          else window.location.href = '/pages/passenger.html';
+        }, 600);
+
+      } catch (err) {
+        showToast(err.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<span>Sign In</span>';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRAKO — Smarter Journeys. Better Connections.</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <a href="/pages/index.html" class="brand-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="15" rx="3"></rect>
+        <circle cx="7" cy="19" r="2"></circle>
+        <circle cx="17" cy="19" r="2"></circle>
+        <path d="M3 10h18M7 4v6M17 4v6"></path>
+      </svg>
+      <span>TRAKO</span>
+      <span class="tagline-pill">Smart Mobility</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#search" class="nav-link">Search Buses</a></li>
+      <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+      <li><a href="#features" class="nav-link">Features</a></li>
+      <li><a href="#roles" class="nav-link">Platform Roles</a></li>
+      <li><a href="/pages/nearby-stops.html" class="nav-link">Nearby Stands</a></li>
+    </ul>
+
+    <div class="nav-actions" id="user-nav-slot">
+      <!-- Injected by api.js: Login/Register or Profile -->
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-badge">
+      <span class="badge badge-live">Live</span>
+      Next-Gen Bus Platform & Segment Booking Engine
+    </div>
+    <h1 class="hero-title">Smarter Journeys.<br>Better Connections.</h1>
+    <p class="hero-subtitle">
+      Connect passengers, bus operators, drivers, and conductors in real-time. Scan physical seat QR codes, book dynamic route segments, and track buses with live smartphone GPS.
+    </p>
+
+    <!-- Quick Search Widget -->
+    <div id="search" class="search-widget-container">
+      <form id="quick-search-form">
+        <div class="search-form-row">
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">
+              <span class="search-field-icon">📍 From (Origin)</span>
+            </label>
+            <input type="text" id="origin-input" class="form-input" placeholder="e.g. Panaji or Mapusa" required list="stops-datalist">
+          </div>
+
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">
+              <span class="search-field-icon">🏁 To (Destination)</span>
+            </label>
+            <input type="text" id="dest-input" class="form-input" placeholder="e.g. Sawantwadi or Ratnagiri" required list="stops-datalist">
+          </div>
+
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">
+              <span class="search-field-icon">📅 Date of Travel</span>
+            </label>
+            <input type="date" id="date-input" class="form-input" required>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+              <span>Find Buses</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+      <datalist id="stops-datalist"></datalist>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="section">
+    <div class="section-header">
+      <h2 class="section-title">How TRAKO Works</h2>
+      <p class="section-desc">A unified digital platform connecting the entire journey lifecycle.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3 class="step-title">Search or Scan QR</h3>
+        <p class="step-text">Search upcoming trips online or scan the physical QR code on your bus seat for instant boarding.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3 class="step-title">Segment Booking</h3>
+        <p class="step-text">Our intelligent segment engine lets multiple passengers share seats across non-overlapping stops.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3 class="step-title">Digital Ticket & QR</h3>
+        <p class="step-text">Receive an encrypted digital ticket pass. Conductors verify passengers instantly at the door.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3 class="step-title">Live GPS Radar</h3>
+        <p class="step-text">Drivers stream smartphone coordinates live. Passengers and fleet managers track progress in real time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Grid -->
+  <section id="features" class="section" style="background-color: var(--bg-secondary);">
+    <div class="section-header">
+      <h2 class="section-title">Engineered for Smart Transportation</h2>
+      <p class="section-desc">Built from the ground up for high-efficiency transit operations.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <div style="color:var(--primary);margin-bottom:1rem;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </div>
+        <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Segment-Based Booking</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">
+          Maximize bus occupancy. A seat from Panaji to Pernem can be re-booked from Pernem to Ratnagiri on the exact same trip.
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="color:var(--accent);margin-bottom:1rem;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Dual QR Ecosystem</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">
+          Physical seat QR codes initiate instantaneous in-bus bookings, while cryptographically signed digital ticket QR codes enable rapid conductor verification.
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="color:var(--success);margin-bottom:1rem;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+          </svg>
+        </div>
+        <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Smartphone GPS Tracking</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">
+          No expensive proprietary hardware needed. Driver smartphones stream live coordinates over WebSockets with automatic stale-detection.
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="color:var(--warning);margin-bottom:1rem;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Conductor & No-Show Engine</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">
+          Real-time passenger manifest with boarding verification and configurable deadline thresholds to confirm no-shows and release seats.
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="color:#a855f7;margin-bottom:1rem;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        </div>
+        <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Nearby Bus Stand Finder</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">
+          Locate nearest registered bus stands and terminals using geolocation with real-time distance calculations and directions.
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="color:#ec4899;margin-bottom:1rem;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+        </div>
+        <h3 style="margin-bottom:0.5rem;font-size:1.2rem;">Fleet Management Radar</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">
+          Operators monitor their entire authorized fleet on an interactive map radar, viewing active trips, speeds, and driver assignments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Roles Section -->
+  <section id="roles" class="section">
+    <div class="section-header">
+      <h2 class="section-title">Designed for Every Stakeholder</h2>
+      <p class="section-desc">Dedicated dashboards and customized workflows for each role.</p>
+    </div>
+
+    <div class="role-tabs">
+      <button class="role-tab-btn active" onclick="switchRoleTab('passenger')">Passengers</button>
+      <button class="role-tab-btn" onclick="switchRoleTab('operator')">Bus Operators</button>
+      <button class="role-tab-btn" onclick="switchRoleTab('driver')">Drivers</button>
+      <button class="role-tab-btn" onclick="switchRoleTab('conductor')">Conductors</button>
+    </div>
+
+    <!-- Passenger Role Content -->
+    <div id="role-passenger" class="role-content-box">
+      <div>
+        <span class="badge badge-primary">Passenger Experience</span>
+        <h3 style="font-size:1.8rem;margin:1rem 0 0.5rem;">Frictionless Travel Booking & Tracking</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;">
+          Book seats with dynamic segment pricing, hop on buses by scanning seat QR codes, store all digital tickets in your profile, and watch your bus arrive on a live radar.
+        </p>
+        <ul class="role-feature-list">
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Interactive bus cabin seat selection
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Physical seat QR code scanning for walk-in boarding
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Real-time GPS bus tracking with ETA and status badges
+          </li>
+        </ul>
+        <div style="margin-top:2rem;">
+          <a href="/pages/passenger.html" class="btn btn-primary">Open Passenger Portal</a>
+        </div>
+      </div>
+      <div class="card card-glass" style="text-align:center;padding:2.5rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🎫</div>
+        <h4 style="font-size:1.2rem;margin-bottom:0.5rem;">Digital Boarding Pass</h4>
+        <p style="color:var(--text-secondary);font-size:0.9rem;">
+          Secure, verified tickets generated instantly on booking with encrypted QR verification tokens.
+        </p>
+      </div>
+    </div>
+
+    <!-- Operator Role Content -->
+    <div id="role-operator" class="role-content-box" style="display:none;">
+      <div>
+        <span class="badge badge-primary">Operator Suite</span>
+        <h3 style="font-size:1.8rem;margin:1rem 0 0.5rem;">Complete Fleet & Route Governance</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;">
+          Maintain buses, generate physical seat QR codes, design ordered routes with intermediate stops and halt durations, schedule trips, and watch active buses on live map radar.
+        </p>
+        <ul class="role-feature-list">
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Bus and seating capacity manager with automatic seat generation
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Printable physical seat QR generator for any bus
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Live fleet radar showing all active buses on road
+          </li>
+        </ul>
+        <div style="margin-top:2rem;">
+          <a href="/pages/operator.html" class="btn btn-primary">Open Operator Console</a>
+        </div>
+      </div>
+      <div class="card card-glass" style="text-align:center;padding:2.5rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🚌</div>
+        <h4 style="font-size:1.2rem;margin-bottom:0.5rem;">Live Fleet Radar</h4>
+        <p style="color:var(--text-secondary);font-size:0.9rem;">
+          Monitor real-time vehicle movement, driver speed, and trip adherence on an interactive map.
+        </p>
+      </div>
+    </div>
+
+    <!-- Driver Role Content -->
+    <div id="role-driver" class="role-content-box" style="display:none;">
+      <div>
+        <span class="badge badge-primary">Driver Interface</span>
+        <h3 style="font-size:1.8rem;margin:1rem 0 0.5rem;">Smartphone-Driven GPS Streaming</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;">
+          Drivers start assigned trips directly on their mobile browser. Location updates are authorized strictly during active trips and shared over WebSockets.
+        </p>
+        <ul class="role-feature-list">
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            One-touch "Start Trip" and "End Trip" buttons
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Strict driver authorization — no tracking outside active trips
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Built-in route simulation toggle for desktop testing
+          </li>
+        </ul>
+        <div style="margin-top:2rem;">
+          <a href="/pages/driver.html" class="btn btn-primary">Open Driver Console</a>
+        </div>
+      </div>
+      <div class="card card-glass" style="text-align:center;padding:2.5rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🛰️</div>
+        <h4 style="font-size:1.2rem;margin-bottom:0.5rem;">Mobile Geolocation</h4>
+        <p style="color:var(--text-secondary);font-size:0.9rem;">
+          Zero hardware cost. Powers passenger live maps and fleet oversight using standard mobile browsers.
+        </p>
+      </div>
+    </div>
+
+    <!-- Conductor Role Content -->
+    <div id="role-conductor" class="role-content-box" style="display:none;">
+      <div>
+        <span class="badge badge-primary">Conductor Portal</span>
+        <h3 style="font-size:1.8rem;margin:1rem 0 0.5rem;">Instant QR Verification & No-Show Control</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;">
+          Conductors scan passenger tickets with smartphone camera or code, verify passenger destination segments, confirm boarding, and declare no-shows to release seats.
+        </p>
+        <ul class="role-feature-list">
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Camera QR scanner with server-side validation
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Complete passenger manifest grouped by stop sequences
+          </li>
+          <li class="role-feature-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Boarding deadline tracking & seat release confirmation
+          </li>
+        </ul>
+        <div style="margin-top:2rem;">
+          <a href="/pages/conductor.html" class="btn btn-primary">Open Conductor Console</a>
+        </div>
+      </div>
+      <div class="card card-glass" style="text-align:center;padding:2.5rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">📋</div>
+        <h4 style="font-size:1.2rem;margin-bottom:0.5rem;">Boarding Manifest</h4>
+        <p style="color:var(--text-secondary);font-size:0.9rem;">
+          Prevent fraud and double-boarding with instant audit records and conductor signatures.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <h2 class="cta-title">Ready for Smarter Bus Mobility?</h2>
+    <p class="cta-subtitle">
+      Experience the live platform now using pre-seeded demo accounts with one click.
+    </p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="/pages/login.html" class="btn btn-primary btn-lg">Explore Demo Accounts</a>
+      <a href="/pages/nearby-stops.html" class="btn btn-secondary btn-lg">Find Nearest Bus Stand</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="brand-logo" style="margin-bottom:1rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="15" rx="3"></rect>
+            <circle cx="7" cy="19" r="2"></circle>
+            <circle cx="17" cy="19" r="2"></circle>
+            <path d="M3 10h18M7 4v6M17 4v6"></path>
+          </svg>
+          <span>TRAKO</span>
+        </div>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
+          Next-generation smart bus transportation and fleet management platform connecting passengers, operators, drivers, and conductors.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Platform Roles</h5>
+        <ul class="footer-links">
+          <li><a href="/pages/passenger.html" class="footer-link">Passenger Portal</a></li>
+          <li><a href="/pages/operator.html" class="footer-link">Operator Console</a></li>
+          <li><a href="/pages/driver.html" class="footer-link">Driver Console</a></li>
+          <li><a href="/pages/conductor.html" class="footer-link">Conductor Portal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Features</h5>
+        <ul class="footer-links">
+          <li><a href="#search" class="footer-link">Segment Seat Booking</a></li>
+          <li><a href="/pages/book-seat.html" class="footer-link">Seat QR Booking</a></li>
+          <li><a href="/pages/nearby-stops.html" class="footer-link">Bus Stand Finder</a></li>
+          <li><a href="/pages/live-track.html" class="footer-link">Live GPS Radar</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Developer & Docs</h5>
+        <ul class="footer-links">
+          <li><a href="/docs" target="_blank" class="footer-link">FastAPI Swagger UI</a></li>
+          <li><a href="/redoc" target="_blank" class="footer-link">API ReDoc</a></li>
+          <li><a href="/pages/login.html" class="footer-link">Demo Credentials</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 TRAKO Mobility Systems. Built for Smart Bus Transportation.</span>
+      <span>API v1.0.0 &bull; PostgreSQL &bull; FastAPI</span>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/landing.js"></script>
+</body>
+</html>

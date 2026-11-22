@@ -1,0 +1,33 @@
+services:
+  # TRAKO Web Service on Render
+  - type: web
+    name: trako-platform
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: trako-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateCrypto: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "1440"
+      - key: BOARDING_DEADLINE_MINUTES
+        value: "10"
+      - key: GPS_STALE_THRESHOLD_SECONDS
+        value: "120"
+      - key: GPS_DELAY_THRESHOLD_MINUTES
+        value: "15"
+
+databases:
+  # Managed PostgreSQL Database on Render
+  - name: trako-db
+    plan: free
+    databaseName: trako_db
+    user: postgres

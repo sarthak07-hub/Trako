@@ -1,0 +1,46 @@
+services:
+  # Managed PostgreSQL Database Service
+  db:
+    image: postgres:16-alpine
+    container_name: trako_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: trako_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: trako_production_secure_postgres_pass_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - trako_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d trako_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # TRAKO Core Platform (FastAPI + WebSockets + HTML/JS/CSS Frontend)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trako_app
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:trako_production_secure_postgres_pass_2026@db:5432/trako_db
+      SECRET_KEY: trako-super-secure-production-ready-jwt-secret-key-2026
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 1440
+      BOARDING_DEADLINE_MINUTES: 10
+      GPS_STALE_THRESHOLD_SECONDS: 120
+      GPS_DELAY_THRESHOLD_MINUTES: 15
+      HOST: "0.0.0.0"
+      PORT: "8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  trako_pgdata:
+    driver: local

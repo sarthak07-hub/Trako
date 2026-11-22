@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conductor Portal — TRAKO</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/pages/index.html" class="brand-logo" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="15" rx="3"></rect>
+            <circle cx="7" cy="19" r="2"></circle>
+            <circle cx="17" cy="19" r="2"></circle>
+            <path d="M3 10h18M7 4v6M17 4v6"></path>
+          </svg>
+          <span style="font-size:1.25rem;">TRAKO</span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>Passenger Manifest</span>
+        </div>
+        <div class="nav-item" onclick="document.getElementById('scanner-section').scrollIntoView({behavior:'smooth'})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>QR Ticket Scanner</span>
+        </div>
+        <a href="/pages/nearby-stops.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span>Bus Stand Directory</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" style="background:#78350f;">C</div>
+          <div class="user-meta">
+            <div class="user-name" id="conductor-name">Conductor</div>
+            <div class="user-role-tag">Bus Conductor</div>
+          </div>
+        </div>
+        <button onclick="logout()" class="btn btn-outline btn-sm btn-full" style="margin-top:1rem;">
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dashboard-main">
+      <header class="topbar">
+        <div class="topbar-title">Conductor Ticket Verification & Manifest</div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <label style="font-size:0.85rem;color:var(--text-secondary);font-weight:600;">Trip:</label>
+          <select id="conductor-trip-select" class="form-select" style="width:auto;padding:0.4rem 0.8rem;" onchange="onTripSelected()"></select>
+        </div>
+      </header>
+
+      <div class="content-body">
+        
+        <!-- Manifest Overview Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="stat-total-passengers">--</div>
+              <div class="stat-label">Total Reserved Passengers</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="stat-boarded" style="color:var(--success);">--</div>
+              <div class="stat-label">Boarded & Verified</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="stat-pending">--</div>
+              <div class="stat-label">Awaiting Boarding</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="stat-no-shows" style="color:var(--warning);">--</div>
+              <div class="stat-label">Potential No-Shows</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scanner & Verification Card -->
+        <div id="scanner-section" class="card card-glass" style="margin-bottom:2rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;">
+            
+            <!-- Camera Scanner Area -->
+            <div>
+              <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:0.75rem;">📷 Live Camera QR Scanner</h3>
+              <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:1rem;">
+                Hold the passenger's digital ticket QR code in front of the camera for real-time verification.
+              </p>
+              
+              <div id="qr-reader" style="width:100%;max-width:360px;margin:0 auto;border-radius:var(--radius-md);overflow:hidden;background:#000;"></div>
+              
+              <div style="margin-top:1rem;text-align:center;">
+                <button onclick="initCameraScanner()" class="btn btn-secondary btn-sm">
+                  Activate Camera Scanner
+                </button>
+              </div>
+            </div>
+
+            <!-- Manual Ticket Code / Verification Input -->
+            <div style="background:var(--bg-secondary);padding:1.5rem;border-radius:var(--radius-lg);border:1px solid var(--border-color);">
+              <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:0.75rem;">⌨️ Manual Ticket Verification</h3>
+              <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:1.25rem;">
+                Enter a ticket token (e.g. <code>TK-XXXX</code>) or booking reference (e.g. <code>TRK-2026-XXXX</code>) to verify:
+              </p>
+
+              <form onsubmit="handleManualVerify(event)">
+                <div class="form-group">
+                  <label class="form-label">Ticket Token or Booking Ref</label>
+                  <input type="text" id="manual-ticket-input" class="form-input" placeholder="e.g. TK-B8Z4Q9 or TRK-2026-X89J2" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                  Verify Ticket &rarr;
+                </button>
+              </form>
+
+              <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border-color);font-size:0.8rem;color:var(--text-muted);">
+                💡 <em>Tip:</em> You can also click the "✓ Board" button directly on any passenger in the manifest table below.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Passenger Manifest Table -->
+        <div class="card card-glass">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+            <div>
+              <h3 style="font-size:1.25rem;font-weight:800;">Passenger Trip Manifest</h3>
+              <p style="color:var(--text-secondary);font-size:0.85rem;">Ordered by route stop sequences for organized boarding.</p>
+            </div>
+            <button onclick="loadManifest(currentTripId)" class="btn btn-secondary btn-sm">🔄 Refresh Manifest</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Seat</th>
+                  <th>Passenger</th>
+                  <th>Booking Ref / Ticket</th>
+                  <th>Segment (From &rarr; To)</th>
+                  <th>Boarding Status</th>
+                  <th>Conductor Actions</th>
+                </tr>
+              </thead>
+              <tbody id="manifest-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Verification Result Modal -->
+  <div id="verify-result-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width:500px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Verification Result</h3>
+        <button class="modal-close" onclick="closeModal('verify-result-modal')">&times;</button>
+      </div>
+      <div id="verify-result-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/conductor.js"></script>
+</body>
+</html>

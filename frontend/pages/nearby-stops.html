@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearby Bus Stand Finder — TRAKO</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <!-- Header -->
+  <header class="navbar">
+    <a href="/pages/index.html" class="brand-logo" style="text-decoration:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="15" rx="3"></rect>
+        <circle cx="7" cy="19" r="2"></circle>
+        <circle cx="17" cy="19" r="2"></circle>
+        <path d="M3 10h18M7 4v6M17 4v6"></path>
+      </svg>
+      <span>TRAKO</span>
+      <span class="tagline-pill">Station Finder</span>
+    </a>
+
+    <div style="display:flex;gap:0.75rem;">
+      <a href="/pages/passenger.html" class="btn btn-outline btn-sm">Passenger Portal</a>
+      <a href="/pages/login.html" class="btn btn-primary btn-sm">Sign In</a>
+    </div>
+  </header>
+
+  <main style="flex-grow:1;display:flex;flex-direction:column;padding:1.5rem;max-width:1400px;width:100%;margin:0 auto;">
+    
+    <div class="card card-glass" style="margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <h2 style="font-size:1.4rem;font-weight:800;">Nearby Bus Stands & Terminals</h2>
+        <div id="location-status" style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.25rem;">
+          Detecting location...
+        </div>
+      </div>
+      <div>
+        <button onclick="requestUserLocation()" class="btn btn-secondary btn-sm">
+          📍 Recalibrate My Location
+        </button>
+      </div>
+    </div>
+
+    <!-- Map & Distance Cards Split View -->
+    <div style="display:grid;grid-template-columns:1fr 420px;gap:1.5rem;flex-grow:1;align-items:start;">
+      <div id="nearby-map" class="map-view-container" style="height:620px;"></div>
+      <div id="stops-cards-list" style="max-height:620px;overflow-y:auto;padding-right:0.5rem;"></div>
+    </div>
+
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/nearby-stops.js"></script>
+</body>
+</html>
