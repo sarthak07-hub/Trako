@@ -26,7 +26,6 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY backend ./backend
 COPY frontend ./frontend
 COPY run.py .
-COPY .env.example .
 
 # Expose HTTP port
 EXPOSE 8000
